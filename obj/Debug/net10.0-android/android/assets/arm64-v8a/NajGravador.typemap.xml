@@ -1,4 +1,4 @@
-<api type="debug" assembly-name="NajGravador" mvid="d54e57df035b4d989190a4c4a98360e7">
+<api type="debug" assembly-name="NajGravador" mvid="5a4f7636ff2e47c39e138a602a92a335">
   <java-to-managed>
     <entry java-name="crc649e012214ff7534f9/MainActivity" managed-name="NajGravador.MainActivity, NajGravador" managed-type-token-id="33554443" />
     <entry java-name="crc649e012214ff7534f9/MainApplication" managed-name="NajGravador.MainApplication, NajGravador" managed-type-token-id="33554444" />

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="NajGravador.Views.NewGroupPage" xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="#F7F9FC" Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
+        <Border Padding="12,10" BackgroundColor="White" Stroke="#E2E7ED"><Grid ColumnDefinitions="44,*"><Button Text="‹" FontSize="30" TextColor="#1E3A5F" BackgroundColor="Transparent" Padding="0" Clicked="OnBackClicked"/><Label Grid.Column="1" Text="Novo grupo" FontSize="19" FontAttributes="Bold" TextColor="#1E3A5F" VerticalTextAlignment="Center"/></Grid></Border>
+        <Border Grid.Row="1" Margin="14,12,14,5" Padding="12,2" BackgroundColor="White" Stroke="#D9E1EA"><Border.StrokeShape><RoundRectangle CornerRadius="12"/></Border.StrokeShape><Entry x:Name="GroupNameEntry" Placeholder="Nome do grupo"/></Border>
+        <Border Grid.Row="2" Margin="14,5,14,8" Padding="10,0" BackgroundColor="White" Stroke="#DCE3EB"><Border.StrokeShape><RoundRectangle CornerRadius="19"/></Border.StrokeShape><SearchBar x:Name="ContactSearchBar" Placeholder="Buscar contatos" FontSize="13" TextColor="#26384A" PlaceholderColor="#7A8795" SearchIconColor="#4A5568" BackgroundColor="Transparent" TextChanged="OnSearchChanged"/></Border>
+        <ScrollView Grid.Row="3"><VerticalStackLayout Padding="14,5" Spacing="6"><Label Text="Selecione os participantes" FontSize="12" FontAttributes="Bold" TextColor="#657487" Margin="4,0,0,4"/><VerticalStackLayout x:Name="ContactsHost" Spacing="5"/><Label x:Name="NoContactsLabel" Text="Nenhum contato salvo!" IsVisible="False" FontSize="14" TextColor="#788695" HorizontalTextAlignment="Center" Margin="20,45"/></VerticalStackLayout></ScrollView>
+        <Button Grid.Row="4" Margin="14,8,14,14" Text="Criar grupo" FontAttributes="Bold" BackgroundColor="#1E66C2" TextColor="White" CornerRadius="12" HeightRequest="48" Clicked="OnCreateClicked"/>
+    </Grid>
+</ContentPage>

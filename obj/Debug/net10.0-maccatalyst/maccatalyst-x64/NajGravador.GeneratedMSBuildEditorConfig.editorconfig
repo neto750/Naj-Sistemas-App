@@ -77,11 +77,101 @@ build_metadata.AdditionalFiles.NoWarn =
 build_metadata.AdditionalFiles.EnableDiagnostics = 
 build_metadata.AdditionalFiles.LineInfo = 
 
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/ChatContactsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.ChatContactsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ChatContactsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ChatContactsPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/ChatConversationPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.ChatConversationPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ChatConversationPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ChatConversationPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/ChatPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.ChatPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ChatPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ChatPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/ChatSettingsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.ChatSettingsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\ChatSettingsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\ChatSettingsPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/FavoriteMessagesPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.FavoriteMessagesPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\FavoriteMessagesPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\FavoriteMessagesPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\LoginPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
 [C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/MainPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.MainPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\MainPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\MainPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/NewChatListPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.NewChatListPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\NewChatListPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\NewChatListPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/NewContactPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.NewContactPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\NewContactPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\NewContactPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/NewGroupPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.NewGroupPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\NewGroupPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\NewGroupPage.xaml
 build_metadata.AdditionalFiles.Inflator = SourceGen
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 
@@ -102,6 +192,16 @@ build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.RecordingsPage.xaml
 build_metadata.AdditionalFiles.TargetPath = Views\RecordingsPage.xaml
 build_metadata.AdditionalFiles.RelativePath = Views\RecordingsPage.xaml
+build_metadata.AdditionalFiles.Inflator = SourceGen
+build_metadata.AdditionalFiles.NoWarn = 
+build_metadata.AdditionalFiles.EnableDiagnostics = 
+build_metadata.AdditionalFiles.LineInfo = 
+
+[C:/Users/nelso/Desktop/NAJ - Gravador de audio/NajGravador/Views/RegisterPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = NajGravador.Views.RegisterPage.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\RegisterPage.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\RegisterPage.xaml
 build_metadata.AdditionalFiles.Inflator = SourceGen
 build_metadata.AdditionalFiles.NoWarn = 
 build_metadata.AdditionalFiles.EnableDiagnostics = 

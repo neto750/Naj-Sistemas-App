@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="NajGravador.Views.FavoriteMessagesPage" xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="#F7F9FC" Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="Auto,*">
+        <Border Padding="12,10" BackgroundColor="White" Stroke="#E2E7ED"><Grid ColumnDefinitions="44,*"><Button Text="‹" FontSize="30" TextColor="#1E3A5F" BackgroundColor="Transparent" Padding="0" Clicked="OnBackClicked"/><Label Grid.Column="1" Text="Mensagens favoritas" FontSize="19" FontAttributes="Bold" TextColor="#1E3A5F" VerticalTextAlignment="Center"/></Grid></Border>
+        <ScrollView Grid.Row="1"><VerticalStackLayout x:Name="MessagesHost" Padding="14,18" Spacing="8"/></ScrollView>
+    </Grid>
+</ContentPage>

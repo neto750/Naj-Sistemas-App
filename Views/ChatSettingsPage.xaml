@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NajGravador.Views.ChatSettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#F7F9FC"
+    Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="Auto,*">
+        <Border Padding="12,10" BackgroundColor="White" Stroke="#E2E7ED">
+            <Grid ColumnDefinitions="44,*">
+                <Button Text="‹" FontSize="30" TextColor="#1E3A5F" BackgroundColor="Transparent" Padding="0" Clicked="OnBackClicked"/>
+                <Label Grid.Column="1" Text="Configurações" FontSize="19" FontAttributes="Bold" TextColor="#1E3A5F" VerticalTextAlignment="Center"/>
+            </Grid>
+        </Border>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="22,24" Spacing="17" MaximumWidthRequest="560" HorizontalOptions="Center">
+                <ContentView x:Name="AvatarHost" WidthRequest="92" HeightRequest="92" HorizontalOptions="Center"/>
+                <Button Text="Alterar foto" FontSize="12" FontAttributes="Bold" TextColor="#1E66C2" BackgroundColor="#E8F2FD" CornerRadius="17" Padding="14,5" HeightRequest="36" HorizontalOptions="Center" Clicked="OnChangePhotoClicked"/>
+                <Label x:Name="EmailLabel" FontSize="12" TextColor="#778594" HorizontalTextAlignment="Center"/>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Nome de exibição" FontSize="12" FontAttributes="Bold" TextColor="#46586A"/>
+                    <Border Padding="12,2" BackgroundColor="White" Stroke="#D9E1EA"><Border.StrokeShape><RoundRectangle CornerRadius="12"/></Border.StrokeShape><Entry x:Name="NameEntry" Placeholder="Seu nome"/></Border>
+                </VerticalStackLayout>
+
+                <Border Padding="14,12" BackgroundColor="White" Stroke="#E1E6EC">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="13"/></Border.StrokeShape>
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="13">
+                        <VerticalStackLayout Spacing="1"><Label Text="Notificações" FontSize="14" FontAttributes="Bold" TextColor="#263A50"/><Label Text="Avisar sobre novas mensagens" FontSize="10" TextColor="#758392"/></VerticalStackLayout>
+                        <Switch x:Name="NotificationsSwitch" Grid.Column="1" OnColor="#1E66C2"/>
+                        <VerticalStackLayout Grid.Row="1" Spacing="1"><Label Text="Confirmações de leitura" FontSize="14" FontAttributes="Bold" TextColor="#263A50"/><Label Text="Exibir os dois vistos azuis" FontSize="10" TextColor="#758392"/></VerticalStackLayout>
+                        <Switch x:Name="ReadReceiptsSwitch" Grid.Row="1" Grid.Column="1" OnColor="#1E66C2"/>
+                    </Grid>
+                </Border>
+
+                <Button Text="Salvar alterações" FontAttributes="Bold" BackgroundColor="#1E66C2" TextColor="White" CornerRadius="12" HeightRequest="48" Clicked="OnSaveClicked"/>
+                <Button Text="Sair desta conta" FontAttributes="Bold" BackgroundColor="#FDECEC" TextColor="#B42318" BorderColor="#F3C6C3" BorderWidth="1" CornerRadius="12" HeightRequest="46" Clicked="OnLogoutClicked"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

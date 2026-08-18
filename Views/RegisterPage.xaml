@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NajGravador.Views.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#F7F9FC"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*">
+        <Grid Padding="14,12" ColumnDefinitions="44,*" BackgroundColor="White">
+            <Button Text="‹" FontSize="30" TextColor="#1E3A5F" BackgroundColor="Transparent" Padding="0" Clicked="OnBackClicked"/>
+            <Image Grid.Column="1" Source="logo_naj.png" HeightRequest="42" HorizontalOptions="Center" Aspect="AspectFit"/>
+        </Grid>
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="26,28" Spacing="16" MaximumWidthRequest="430" HorizontalOptions="Center">
+                <VerticalStackLayout Spacing="3" Margin="0,0,0,8">
+                    <Label Text="Criar conta" FontSize="26" FontAttributes="Bold" TextColor="#1E3A5F"/>
+                    <Label Text="Os dados ficarão armazenados somente neste aparelho." FontSize="12" TextColor="#66778A"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Nome" FontSize="12" FontAttributes="Bold" TextColor="#46586A"/>
+                    <Border Padding="12,2" BackgroundColor="White" Stroke="#D9E1EA"><Border.StrokeShape><RoundRectangle CornerRadius="12"/></Border.StrokeShape><Entry x:Name="NameEntry" Placeholder="Como você quer aparecer"/></Border>
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="E-mail" FontSize="12" FontAttributes="Bold" TextColor="#46586A"/>
+                    <Border Padding="12,2" BackgroundColor="White" Stroke="#D9E1EA"><Border.StrokeShape><RoundRectangle CornerRadius="12"/></Border.StrokeShape><Entry x:Name="EmailEntry" Placeholder="seu@email.com" Keyboard="Email"/></Border>
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Senha" FontSize="12" FontAttributes="Bold" TextColor="#46586A"/>
+                    <Border Padding="12,2" BackgroundColor="White" Stroke="#D9E1EA"><Border.StrokeShape><RoundRectangle CornerRadius="12"/></Border.StrokeShape><Entry x:Name="PasswordEntry" Placeholder="Mínimo de 4 caracteres" IsPassword="True"/></Border>
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Confirmar senha" FontSize="12" FontAttributes="Bold" TextColor="#46586A"/>
+                    <Border Padding="12,2" BackgroundColor="White" Stroke="#D9E1EA"><Border.StrokeShape><RoundRectangle CornerRadius="12"/></Border.StrokeShape><Entry x:Name="ConfirmPasswordEntry" Placeholder="Repita sua senha" IsPassword="True"/></Border>
+                </VerticalStackLayout>
+
+                <Label x:Name="ErrorLabel" IsVisible="False" FontSize="12" TextColor="#C62828"/>
+                <Button x:Name="RegisterButton" Text="Criar minha conta" FontAttributes="Bold" BackgroundColor="#1E66C2" TextColor="White" CornerRadius="12" HeightRequest="50" Clicked="OnCreateAccountClicked"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

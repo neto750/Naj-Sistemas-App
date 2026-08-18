@@ -130,7 +130,7 @@ public partial class CalendarPage : ContentPage
 
         for (var row = 0; row < 6; row++)
         {
-            MonthGridHost.RowDefinitions.Add(new RowDefinition(new GridLength(94)));
+            MonthGridHost.RowDefinitions.Add(new RowDefinition(new GridLength(82)));
         }
 
         var firstCellDate = _displayedMonth.AddDays(-(int)_displayedMonth.DayOfWeek);
@@ -155,23 +155,23 @@ public partial class CalendarPage : ContentPage
             BackgroundColor = isSelected ? Color.FromArgb("#EDF5FF") : Colors.White,
             Stroke = Color.FromArgb(isSelected ? "#79A9E3" : "#E5EAF0"),
             StrokeThickness = isSelected ? 1.5 : 0.6,
-            Content = new VerticalStackLayout { Spacing = 2 }
+            Content = new VerticalStackLayout { Spacing = 1 }
         };
 
         var content = (VerticalStackLayout)border.Content;
         var dayBadge = new Border
         {
-            WidthRequest = 27,
-            HeightRequest = 27,
+            WidthRequest = 23,
+            HeightRequest = 23,
             Padding = 0,
             HorizontalOptions = LayoutOptions.Center,
             BackgroundColor = isToday ? Color.FromArgb("#1E66C2") : Colors.Transparent,
             Stroke = Colors.Transparent,
-            StrokeShape = new RoundRectangle { CornerRadius = 14 },
+            StrokeShape = new RoundRectangle { CornerRadius = 12 },
             Content = new Label
             {
                 Text = date.Day.ToString(PortugueseCulture),
-                FontSize = 12,
+                FontSize = 11,
                 FontAttributes = isToday || isSelected ? FontAttributes.Bold : FontAttributes.None,
                 TextColor = isToday
                     ? Colors.White
@@ -188,14 +188,14 @@ public partial class CalendarPage : ContentPage
             var eventButton = new Button
             {
                 Text = occurrence.Event.Title,
-                FontSize = 10.5,
+                FontSize = 9.5,
                 FontAttributes = FontAttributes.Bold,
                 TextColor = Colors.White,
                 BackgroundColor = SafeColor(occurrence.Event.ColorHex),
                 CornerRadius = 4,
                 Padding = new Thickness(2, 1),
-                HeightRequest = 23,
-                MinimumHeightRequest = 23,
+                HeightRequest = 20,
+                MinimumHeightRequest = 20,
                 HorizontalOptions = LayoutOptions.Fill,
                 LineBreakMode = LineBreakMode.TailTruncation,
                 CommandParameter = occurrence.Event
@@ -210,7 +210,7 @@ public partial class CalendarPage : ContentPage
             content.Children.Add(new Label
             {
                 Text = $"+ {totalEvents - 2} mais",
-                FontSize = 8,
+                FontSize = 7.5,
                 FontAttributes = FontAttributes.Bold,
                 TextColor = Color.FromArgb("#516071"),
                 HorizontalTextAlignment = TextAlignment.Center

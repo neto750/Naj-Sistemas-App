@@ -4,6 +4,8 @@ public partial class MainPage : ContentPage
 {
     private readonly Services.LegalTaskRepository _legalTaskRepository = new();
     private readonly Services.CalendarEventRepository _calendarRepository = new();
+    private readonly Services.LocalAccountRepository _accountRepository = new();
+    private readonly Services.ChatRepository _chatRepository = new();
 
     public MainPage()
     {
@@ -13,14 +15,29 @@ public partial class MainPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        await RefreshNotificationBadgesAsync();
+        var currentUser = await _accountRepository.GetCurrentAsync();
+        if (currentUser == null)
+        {
+            await Shell.Current.GoToAsync(nameof(LoginPage));
+            return;
+        }
+
+        HeaderUserNameLabel.Text = currentUser.DisplayName;
+        HeaderUserEmailLabel.Text = currentUser.Email;
+        WelcomeHeadingLabel.Text = $"Bem-vindo, {currentUser.DisplayName}!";
+        HeaderAvatarHost.Content = Services.ChatUi.CreateAvatar(
+            currentUser.PhotoPath,
+            currentUser.DisplayName,
+            42);
+        await RefreshNotificationBadgesAsync(currentUser.Id);
     }
 
-    private async Task RefreshNotificationBadgesAsync()
+    private async Task RefreshNotificationBadgesAsync(string currentUserId)
     {
         var legalTasksTask = _legalTaskRepository.GetAllAsync();
         var calendarEventsTask = _calendarRepository.GetAllAsync();
-        await Task.WhenAll(legalTasksTask, calendarEventsTask);
+        var unreadChatTask = _chatRepository.GetUnreadCountAsync(currentUserId);
+        await Task.WhenAll(legalTasksTask, calendarEventsTask, unreadChatTask);
 
         var today = DateTime.Today;
         var overdueTasks = legalTasksTask.Result.Count(task =>
@@ -41,9 +58,7 @@ public partial class MainPage : ContentPage
         SetBadge(TodayCalendarBadge, TodayCalendarBadgeLabel, todayAppointments);
         SetBadge(OverdueCalendarBadge, OverdueCalendarBadgeLabel, overdueAppointments);
 
-        // O chat ainda não possui uma fonte de dados. Quando ela existir, basta
-        // substituir zero pela quantidade de mensagens não respondidas.
-        SetBadge(UnreadChatBadge, UnreadChatBadgeLabel, 0);
+        SetBadge(UnreadChatBadge, UnreadChatBadgeLabel, unreadChatTask.Result);
     }
 
     private static DateTime GetScheduledDate(Models.CalendarEvent calendarEvent) =>
@@ -117,4 +132,22 @@ public partial class MainPage : ContentPage
             TasksCard.InputTransparent = false;
         }
     }
+
+    private async void OnChatTapped(object? sender, TappedEventArgs e)
+    {
+        InternalChatCard.InputTransparent = true;
+        await InternalChatCard.ScaleToAsync(0.985, 70, Easing.CubicOut);
+        await InternalChatCard.ScaleToAsync(1, 130, Easing.CubicOut);
+        try
+        {
+            await Shell.Current.GoToAsync(nameof(ChatPage));
+        }
+        finally
+        {
+            InternalChatCard.InputTransparent = false;
+        }
+    }
+
+    private async void OnProfileTapped(object? sender, TappedEventArgs e) =>
+        await Shell.Current.GoToAsync(nameof(ChatSettingsPage));
 }

@@ -5,6 +5,8 @@ obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\calendar_event.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\calendar_naj.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\calendar_task.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\close_dark.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\default_avatar.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\default_group.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\dotnet_bot.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\microphone.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-hdpi\microphone_white.png
@@ -18,6 +20,8 @@ obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\calendar_event.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\calendar_naj.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\calendar_task.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\close_dark.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\default_avatar.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\default_group.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\dotnet_bot.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\microphone.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-mdpi\microphone_white.png
@@ -31,6 +35,8 @@ obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\calendar_event.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\calendar_naj.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\calendar_task.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\close_dark.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\default_avatar.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\default_group.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\dotnet_bot.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\microphone.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xhdpi\microphone_white.png
@@ -44,6 +50,8 @@ obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\calendar_event.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\calendar_naj.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\calendar_task.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\close_dark.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\default_avatar.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\default_group.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\dotnet_bot.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\microphone.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxhdpi\microphone_white.png
@@ -57,6 +65,8 @@ obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\calendar_event.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\calendar_naj.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\calendar_task.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\close_dark.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\default_avatar.png
+obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\default_group.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\dotnet_bot.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\microphone.png
 obj\Debug\net10.0-android\resizetizer\r\drawable-xxxhdpi\microphone_white.png

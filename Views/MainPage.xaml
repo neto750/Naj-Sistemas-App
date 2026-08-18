@@ -12,35 +12,44 @@
         <!-- Cabeçalho -->
         <Grid
             Grid.Row="0"
-            Padding="20,16"
-            ColumnDefinitions="44,*,44"
+            Padding="18,13"
+            ColumnDefinitions="46,*,78"
+            ColumnSpacing="9"
             BackgroundColor="White">
 
-            <!-- Menu -->
-            <Button
-                Grid.Column="0"
-                Text="☰"
-                FontSize="24"
-                TextColor="#1E3A5F"
-                BackgroundColor="Transparent"
-                Padding="0"/>
+            <ContentView
+                x:Name="HeaderAvatarHost"
+                WidthRequest="42"
+                HeightRequest="42">
+                <ContentView.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnProfileTapped"/>
+                </ContentView.GestureRecognizers>
+            </ContentView>
+
+            <VerticalStackLayout Grid.Column="1" Spacing="0" VerticalOptions="Center">
+                <Label
+                    x:Name="HeaderUserNameLabel"
+                    Text="Usuário"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    TextColor="#1E3A5F"
+                    MaxLines="1"
+                    LineBreakMode="TailTruncation"/>
+                <Label
+                    x:Name="HeaderUserEmailLabel"
+                    FontSize="9"
+                    TextColor="#768493"
+                    MaxLines="1"
+                    LineBreakMode="TailTruncation"/>
+            </VerticalStackLayout>
 
             <!-- Logo da NAJ -->
             <Image
-                Grid.Column="1"
-                Source="logo_naj.png"
-                HeightRequest="48"
-                HorizontalOptions="Center"
-                Aspect="AspectFit"/>
-
-            <!-- Perfil -->
-            <Button
                 Grid.Column="2"
-                Text="●"
-                FontSize="20"
-                TextColor="#1E3A5F"
-                BackgroundColor="Transparent"
-                Padding="0"/>
+                Source="logo_naj.png"
+                HeightRequest="38"
+                HorizontalOptions="End"
+                Aspect="AspectFit"/>
 
         </Grid>
 
@@ -51,8 +60,9 @@
             Spacing="8">
 
             <Label
-                Text="Olá!"
-                FontSize="26"
+                x:Name="WelcomeHeadingLabel"
+                Text="Bem-vindo!"
+                FontSize="24"
                 FontAttributes="Bold"
                 TextColor="#1E3A5F"/>
 
@@ -393,7 +403,7 @@
 
             </Border>
 
-            <!-- Card: Chat interno (reservado; sem navegação por enquanto) -->
+            <!-- Card: Chat interno -->
             <Border
                 x:Name="InternalChatCard"
                 Margin="0,8,0,0"
@@ -406,6 +416,10 @@
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="14"/>
                 </Border.StrokeShape>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnChatTapped"/>
+                </Border.GestureRecognizers>
 
                 <Grid ColumnDefinitions="56,*,32">
                     <Border

@@ -71,6 +71,16 @@ close_dark.scale-125.png
 close_dark.scale-150.png
 close_dark.scale-200.png
 close_dark.scale-400.png
+default_avatar.scale-100.png
+default_avatar.scale-125.png
+default_avatar.scale-150.png
+default_avatar.scale-200.png
+default_avatar.scale-400.png
+default_group.scale-100.png
+default_group.scale-125.png
+default_group.scale-150.png
+default_group.scale-200.png
+default_group.scale-400.png
 dotnet_bot.scale-100.png
 dotnet_bot.scale-125.png
 dotnet_bot.scale-150.png

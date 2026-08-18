@@ -28,5 +28,16 @@ public partial class AppShell : Shell
             typeof(TaskBoardsPage)
         );
 
+        Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+        Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
+        Routing.RegisterRoute(nameof(ChatPage), typeof(ChatPage));
+        Routing.RegisterRoute(nameof(ChatConversationPage), typeof(ChatConversationPage));
+        Routing.RegisterRoute(nameof(ChatContactsPage), typeof(ChatContactsPage));
+        Routing.RegisterRoute(nameof(NewContactPage), typeof(NewContactPage));
+        Routing.RegisterRoute(nameof(NewGroupPage), typeof(NewGroupPage));
+        Routing.RegisterRoute(nameof(NewChatListPage), typeof(NewChatListPage));
+        Routing.RegisterRoute(nameof(ChatSettingsPage), typeof(ChatSettingsPage));
+        Routing.RegisterRoute(nameof(FavoriteMessagesPage), typeof(FavoriteMessagesPage));
+
     }
 }

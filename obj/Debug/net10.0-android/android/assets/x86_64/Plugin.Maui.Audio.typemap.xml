@@ -1,8 +1,0 @@
-<api type="debug" assembly-name="Plugin.Maui.Audio" mvid="840bb09c267443e7bbf64edd51c33a77">
-  <java-to-managed>
-    <entry java-name="crc64467b05f37239e7a6/StreamMediaDataSource" managed-name="Plugin.Maui.Audio.StreamMediaDataSource, Plugin.Maui.Audio" managed-type-token-id="33554463" />
-  </java-to-managed>
-  <managed-to-java>
-    <entry java-name="crc64467b05f37239e7a6/StreamMediaDataSource" managed-name="Plugin.Maui.Audio.StreamMediaDataSource, Plugin.Maui.Audio" managed-type-token-id="33554463" />
-  </managed-to-java>
-</api>

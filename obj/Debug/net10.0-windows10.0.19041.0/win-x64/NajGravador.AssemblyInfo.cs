@@ -17,7 +17,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NajGravador")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+28324b70fe162f10bc35184248ee8ca34ac38af5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+8c6419f98ae7defced9aa714a433326698e8e1c4")]
 [assembly: System.Reflection.AssemblyProductAttribute("NajGravador")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NajGravador")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NajGravador.Views.ChatPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#F7F9FC"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+        <Border Grid.Row="0" Padding="14,10" BackgroundColor="White" Stroke="#E4E9F0">
+            <Grid ColumnDefinitions="44,*,44" ColumnSpacing="8">
+                <Button Text="‹" FontSize="31" TextColor="#1E3A5F" BackgroundColor="Transparent" Padding="0" Clicked="OnBackClicked"/>
+                <HorizontalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Center">
+                    <Image Source="logo_naj.png" WidthRequest="64" HeightRequest="38" Aspect="AspectFit"/>
+                    <Label Text="Chat interno" FontSize="19" FontAttributes="Bold" TextColor="#1E3A5F" VerticalTextAlignment="Center"/>
+                </HorizontalStackLayout>
+                <Button Grid.Column="2" Text="⋮" FontSize="26" TextColor="#1E3A5F" BackgroundColor="Transparent" Padding="0" Clicked="OnMenuClicked"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="1" Margin="14,12,14,8" Padding="10,0" BackgroundColor="White" Stroke="#DCE3EB">
+            <Border.StrokeShape><RoundRectangle CornerRadius="19"/></Border.StrokeShape>
+            <SearchBar
+                x:Name="ConversationSearchBar"
+                Placeholder="Busque suas conversas"
+                FontSize="13"
+                TextColor="#26384A"
+                PlaceholderColor="#7A8795"
+                SearchIconColor="#4A5568"
+                BackgroundColor="Transparent"
+                SearchButtonPressed="OnSearchChanged"
+                TextChanged="OnSearchChanged"/>
+        </Border>
+
+        <ScrollView Grid.Row="2" Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+            <HorizontalStackLayout x:Name="FiltersHost" Padding="14,2,14,10" Spacing="7"/>
+        </ScrollView>
+
+        <ScrollView Grid.Row="3">
+            <VerticalStackLayout Padding="12,4,12,100" Spacing="5">
+                <Label Text="Conversas recentes" FontSize="14" FontAttributes="Bold" TextColor="#526273" Margin="5,4,0,6"/>
+                <VerticalStackLayout x:Name="ConversationsHost" Spacing="4"/>
+                <VerticalStackLayout x:Name="EmptyState" IsVisible="False" Padding="30,64" Spacing="8">
+                    <Image Source="default_group.svg" HeightRequest="54"/>
+                    <Label x:Name="EmptyStateLabel" Text="Nenhuma conversa encontrada" FontSize="15" FontAttributes="Bold" TextColor="#657487" HorizontalTextAlignment="Center"/>
+                    <Label Text="Use o botão + para iniciar uma conversa." FontSize="12" TextColor="#8793A1" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Border
+            Grid.RowSpan="4"
+            Margin="0,0,20,24"
+            WidthRequest="58"
+            HeightRequest="58"
+            Padding="0"
+            HorizontalOptions="End"
+            VerticalOptions="End"
+            BackgroundColor="#1E66C2"
+            Stroke="Transparent"
+            Shadow="{Shadow Brush=#35000000, Offset='0,4', Radius=10}">
+            <Border.StrokeShape><RoundRectangle CornerRadius="18"/></Border.StrokeShape>
+            <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnNewChatTapped"/></Border.GestureRecognizers>
+            <Label Text="+" FontSize="31" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="NajGravador.Views.NewChatListPage" xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="#F7F9FC" Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+        <Border Padding="12,10" BackgroundColor="White" Stroke="#E2E7ED"><Grid ColumnDefinitions="44,*"><Button Text="‹" FontSize="30" TextColor="#1E3A5F" BackgroundColor="Transparent" Padding="0" Clicked="OnBackClicked"/><Label Grid.Column="1" Text="Nova lista" FontSize="19" FontAttributes="Bold" TextColor="#1E3A5F" VerticalTextAlignment="Center"/></Grid></Border>
+        <VerticalStackLayout Grid.Row="1" Padding="14,12,14,7" Spacing="8"><Label Text="Crie um filtro personalizado para suas conversas" FontSize="11" TextColor="#6F7D8C"/><Border Padding="12,2" BackgroundColor="White" Stroke="#D9E1EA"><Border.StrokeShape><RoundRectangle CornerRadius="12"/></Border.StrokeShape><Entry x:Name="ListNameEntry" Placeholder="Nome da lista"/></Border></VerticalStackLayout>
+        <ScrollView Grid.Row="2"><VerticalStackLayout Padding="14,6" Spacing="6"><Label Text="Contatos desta lista" FontSize="12" FontAttributes="Bold" TextColor="#657487" Margin="4,0,0,4"/><VerticalStackLayout x:Name="ContactsHost" Spacing="5"/><Label x:Name="NoContactsLabel" Text="Nenhum contato salvo!" IsVisible="False" FontSize="14" TextColor="#788695" HorizontalTextAlignment="Center" Margin="20,45"/></VerticalStackLayout></ScrollView>
+        <Button Grid.Row="3" Margin="14,8,14,14" Text="Criar lista" FontAttributes="Bold" BackgroundColor="#1E66C2" TextColor="White" CornerRadius="12" HeightRequest="48" Clicked="OnCreateClicked"/>
+    </Grid>
+</ContentPage>
