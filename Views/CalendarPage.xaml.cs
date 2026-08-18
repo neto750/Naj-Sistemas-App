@@ -151,7 +151,7 @@ public partial class CalendarPage : ContentPage
         var isSelected = date.Date == _selectedDate.Date;
         var border = new Border
         {
-            Padding = new Thickness(4, 3),
+            Padding = new Thickness(2, 3),
             BackgroundColor = isSelected ? Color.FromArgb("#EDF5FF") : Colors.White,
             Stroke = Color.FromArgb(isSelected ? "#79A9E3" : "#E5EAF0"),
             StrokeThickness = isSelected ? 1.5 : 0.6,
@@ -193,7 +193,7 @@ public partial class CalendarPage : ContentPage
                 TextColor = Colors.White,
                 BackgroundColor = SafeColor(occurrence.Event.ColorHex),
                 CornerRadius = 4,
-                Padding = new Thickness(4, 1),
+                Padding = new Thickness(2, 1),
                 HeightRequest = 23,
                 MinimumHeightRequest = 23,
                 HorizontalOptions = LayoutOptions.Fill,

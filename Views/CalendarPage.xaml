@@ -163,14 +163,15 @@
                     <SwipeGestureRecognizer Direction="Left" Swiped="OnMonthSwipedLeft"/>
                     <SwipeGestureRecognizer Direction="Right" Swiped="OnMonthSwipedRight"/>
                 </ScrollView.GestureRecognizers>
-                <VerticalStackLayout Padding="12,14,12,110" Spacing="10" MaximumWidthRequest="1180">
-                    <Border Padding="0" BackgroundColor="White" Stroke="#DDE4EC">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="16"/>
-                        </Border.StrokeShape>
+                <VerticalStackLayout Padding="0,14,0,110" Spacing="10">
+                    <Border
+                        Padding="0"
+                        BackgroundColor="White"
+                        Stroke="Transparent"
+                        StrokeThickness="0">
                         <Grid RowDefinitions="42,*">
                             <Grid
-                                Padding="4,0"
+                                Padding="0"
                                 BackgroundColor="#F7F9FC"
                                 ColumnDefinitions="*,*,*,*,*,*,*">
                                 <Label Grid.Column="0" Text="DOM" Style="{StaticResource CalendarWeekdayStyle}"/>
