@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="NajGravador.Views.RecordingsPage"
+    BackgroundColor="White"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
+
+        <!-- Cabeçalho -->
+        <Grid
+            Grid.Row="0"
+            Padding="16"
+            ColumnDefinitions="44,*,44,44"
+            BackgroundColor="White">
+
+            <Button
+                Grid.Column="0"
+                Text="‹"
+                FontSize="32"
+                TextColor="#1E3A5F"
+                BackgroundColor="Transparent"
+                Padding="0"
+                Clicked="OnBackClicked" />
+
+            <Label
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Text="Gravações"
+                FontSize="22"
+                FontAttributes="Bold"
+                TextColor="#1E3A5F"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center" />
+
+            <Button
+                x:Name="SearchButton"
+                Grid.Column="3"
+                Text="⌕"
+                FontSize="24"
+                TextColor="#1E3A5F"
+                BackgroundColor="Transparent"
+                Padding="0"
+                Clicked="OnSearchClicked" />
+
+        </Grid>
+
+        <Border
+            x:Name="SearchContainer"
+            Grid.Row="1"
+            IsVisible="False"
+            Opacity="0"
+            Margin="16,0,16,10"
+            Padding="4,0"
+            BackgroundColor="#F3F6FA"
+            Stroke="#D7E0EA"
+            StrokeThickness="1">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="16" />
+            </Border.StrokeShape>
+
+            <SearchBar
+                x:Name="RecordingsSearchBar"
+                Placeholder="Pesquisar pelo nome da gravação"
+                PlaceholderColor="#8793A1"
+                TextColor="#1E3A5F"
+                BackgroundColor="Transparent"
+                CancelButtonColor="#1E3A5F"
+                TextChanged="OnSearchTextChanged"
+                SearchButtonPressed="OnSearchButtonPressed" />
+        </Border>
+
+        <!-- Lista de gravações -->
+        <CollectionView
+            x:Name="RecordingsCollection"
+            Grid.Row="2"
+            ItemsLayout="VerticalList"
+            SelectionMode="None"
+            Margin="0,0,0,0">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout
+                    Padding="24,48"
+                    Spacing="8"
+                    HorizontalOptions="Center">
+                    <Label
+                        Text="Nenhuma gravação encontrada"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#1E3A5F"
+                        HorizontalTextAlignment="Center" />
+                    <Label
+                        Text="Tente pesquisar outro nome."
+                        FontSize="13"
+                        TextColor="#707070"
+                        HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border
+                        Padding="12"
+                        BackgroundColor="White"
+                        Stroke="#E2E6EA"
+                        StrokeThickness="1">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+
+                        <Grid RowDefinitions="Auto,48" ColumnDefinitions="48,*,Auto,40">
+
+                            <Button
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Text="▶"
+                                FontSize="16"
+                                WidthRequest="42"
+                                HeightRequest="42"
+                                CornerRadius="21"
+                                Padding="0"
+                                TextColor="White"
+                                BackgroundColor="#1E3A5F"
+                                CommandParameter="{Binding .}"
+                                Clicked="OnPlayRecordingClicked" />
+
+                            <VerticalStackLayout
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="10,0"
+                                Spacing="3"
+                                VerticalOptions="Center">
+
+                                <Label
+                                    Text="{Binding Name}"
+                                    FontSize="16"
+                                    FontAttributes="Bold"
+                                    TextColor="#1E3A5F" />
+
+                                <Label
+                                    Text="{Binding CreatedAt, StringFormat='{}{0:dd/MM/yyyy • HH:mm}'}"
+                                    FontSize="12"
+                                    TextColor="#707070" />
+
+                            </VerticalStackLayout>
+
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Text="{Binding Duration, StringFormat='{}{0:hh\:mm\:ss}'}"
+                                FontSize="13"
+                                TextColor="#707070"
+                                Margin="6,0"
+                                VerticalTextAlignment="Center" />
+
+                            <ImageButton
+                                Grid.Row="0"
+                                Grid.Column="3"
+                                Source="trash_red.svg"
+                                BackgroundColor="Transparent"
+                                Padding="9"
+                                CommandParameter="{Binding .}"
+                                Clicked="OnDeleteRecordingClicked" />
+
+                            <!-- Timeline de reprodução do item ativo -->
+                            <Grid
+                                StyleId="InlineTimelineHost"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="4"
+                                HeightRequest="48"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Center"
+                                IsVisible="False"
+                                x:Name="InlineTimelineView">
+                                <Slider
+                                    Minimum="0"
+                                    Maximum="1"
+                                    Value="0"
+                                    HorizontalOptions="Fill"
+                                    VerticalOptions="Fill"
+                                    MinimumTrackColor="#1E66C2"
+                                    MaximumTrackColor="#D5DDE7"
+                                    ThumbColor="#E32636"
+                                    ValueChanged="OnItemTimelineValueChanged"
+                                    DragStarted="OnItemTimelineDragStarted"
+                                    DragCompleted="OnItemTimelineDragCompleted" />
+                            </Grid>
+
+                        </Grid>
+
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Botão inferior -->
+        <ImageButton
+            Grid.Row="3"
+            Margin="24,12,24,24"
+            WidthRequest="72"
+            HeightRequest="72"
+            HorizontalOptions="Center"
+            Source="microphone_white.svg"
+            BackgroundColor="#E32636"
+            CornerRadius="36"
+            Padding="20"
+            Clicked="OnStartRecordingClicked" />
+
+    </Grid>
+
+</ContentPage>

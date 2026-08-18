@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NajGravador.Views.TaskBoardsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#F5F7FA"
+    Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <Grid RowDefinitions="Auto,Auto,*,Auto">
+            <Border Grid.Row="0" Padding="14,10" BackgroundColor="White" Stroke="#E1E6EC" StrokeThickness="1">
+                <Grid ColumnDefinitions="44,58,*" ColumnSpacing="8">
+                    <Button Text="‹" FontSize="32" TextColor="#1E3A5F" BackgroundColor="Transparent" Padding="0"
+                            Clicked="OnBackClicked" SemanticProperties.Description="Voltar"/>
+                    <Image Grid.Column="1" Source="logo_naj.png" WidthRequest="54" HeightRequest="38" Aspect="AspectFit"/>
+                    <VerticalStackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center">
+                        <Label Text="Minhas Tarefas" FontSize="20" FontAttributes="Bold" TextColor="#1E3A5F"/>
+                        <Label Text="Controle de atividades, processos e prazos" FontSize="11" TextColor="#718096"/>
+                    </VerticalStackLayout>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1" Padding="16,12" ColumnDefinitions="*,Auto" ColumnSpacing="10" BackgroundColor="White">
+                <Border Padding="12,0" HeightRequest="44" BackgroundColor="#F1F4F8" Stroke="#DDE4EC" StrokeThickness="1">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="9"/></Border.StrokeShape>
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                        <Label Text="⌕" FontSize="22" TextColor="#52657A" VerticalTextAlignment="Center"/>
+                        <Entry x:Name="SearchEntry" Grid.Column="1" Placeholder="Buscar tarefas" TextColor="#1E3A5F"
+                               PlaceholderColor="#8795A5" BackgroundColor="Transparent" TextChanged="OnSearchChanged"/>
+                    </Grid>
+                </Border>
+                <Button Grid.Column="1" Text="＋ Novo" FontSize="13" FontAttributes="Bold" TextColor="White"
+                        BackgroundColor="#1E66C2" CornerRadius="9" Padding="15,8" HeightRequest="44"
+                        Clicked="OnOpenCreateClicked" SemanticProperties.Description="Criar nova tarefa"/>
+            </Grid>
+
+            <ScrollView x:Name="TasksScrollView" Grid.Row="2" VerticalScrollBarVisibility="Always">
+                <VerticalStackLayout Padding="16,16,16,24" Spacing="12">
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                        <VerticalStackLayout Spacing="1">
+                            <Label Text="Tarefas" FontSize="19" FontAttributes="Bold" TextColor="#1E3A5F"/>
+                            <Label x:Name="ResultCountLabel" Text="0 tarefas encontradas" FontSize="11" TextColor="#718096"/>
+                        </VerticalStackLayout>
+                        <Border Grid.Column="1" Padding="10,5" BackgroundColor="#FFF3E8" Stroke="Transparent" VerticalOptions="Center">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="7"/></Border.StrokeShape>
+                            <Label x:Name="OverdueCountLabel" Text="0 atrasadas" FontSize="11" FontAttributes="Bold" TextColor="#B54708"/>
+                        </Border>
+                    </Grid>
+
+                    <VerticalStackLayout x:Name="TasksHost" Spacing="11"/>
+
+                    <VerticalStackLayout x:Name="EmptyState" IsVisible="False" Padding="20,54" Spacing="10" HorizontalOptions="Center">
+                        <Border WidthRequest="70" HeightRequest="70" BackgroundColor="#EAF2FC" Stroke="Transparent" HorizontalOptions="Center">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="20"/></Border.StrokeShape>
+                            <Label Text="☑" FontSize="31" TextColor="#1E66C2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                        </Border>
+                        <Label x:Name="EmptyTitleLabel" Text="Nenhuma tarefa encontrada" FontSize="17" FontAttributes="Bold" TextColor="#1E3A5F" HorizontalTextAlignment="Center"/>
+                        <Label Text="Crie uma nova tarefa ou altere os termos da busca." FontSize="12" TextColor="#718096" HorizontalTextAlignment="Center"/>
+                    </VerticalStackLayout>
+
+                    <Label Text="Os nomes e processos apresentados inicialmente são dados demonstrativos." FontSize="9" TextColor="#9AA6B2" HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <Border Grid.Row="3" Padding="14,10" BackgroundColor="White" Stroke="#E1E6EC" StrokeThickness="1">
+                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="8">
+                    <Label x:Name="PageSummaryLabel" Text="Página 1 de 1" FontSize="10" TextColor="#718096" VerticalTextAlignment="Center"/>
+                    <HorizontalStackLayout x:Name="PaginationControls" Grid.Column="1" Spacing="5" HorizontalOptions="Center">
+                        <Button x:Name="PreviousTenButton" Text="«" FontSize="18" TextColor="#1E3A5F" BackgroundColor="#F1F4F8" CornerRadius="7" Padding="8,2" Clicked="OnPreviousTenClicked" SemanticProperties.Description="Voltar dez páginas"/>
+                        <Button x:Name="PreviousPageButton" Text="‹" FontSize="19" TextColor="#1E3A5F" BackgroundColor="#F1F4F8" CornerRadius="7" Padding="8,2" Clicked="OnPreviousPageClicked"/>
+                        <HorizontalStackLayout x:Name="PaginationNumbersHost" Spacing="5"/>
+                        <Button x:Name="NextPageButton" Text="›" FontSize="19" TextColor="#1E3A5F" BackgroundColor="#F1F4F8" CornerRadius="7" Padding="8,2" Clicked="OnNextPageClicked"/>
+                        <Button x:Name="NextTenButton" Text="»" FontSize="18" TextColor="#1E3A5F" BackgroundColor="#F1F4F8" CornerRadius="7" Padding="8,2" Clicked="OnNextTenClicked" SemanticProperties.Description="Avançar dez páginas"/>
+                    </HorizontalStackLayout>
+                    <Label x:Name="ItemsPerPageLabel" Grid.Column="2" Text="5 por página" FontSize="10" TextColor="#718096" VerticalTextAlignment="Center"/>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <BoxView x:Name="ModalScrim" IsVisible="False" Opacity="0" BackgroundColor="#990B1726">
+            <BoxView.GestureRecognizers><TapGestureRecognizer Tapped="OnCloseEditorClicked"/></BoxView.GestureRecognizers>
+        </BoxView>
+
+        <Border x:Name="EditorPanel" IsVisible="False" Opacity="0" Scale="0.97" WidthRequest="620" MaximumWidthRequest="620"
+                MaximumHeightRequest="760" Padding="0" BackgroundColor="#F7F9FC" Stroke="#DDE4EC" StrokeThickness="1"
+                HorizontalOptions="Center" VerticalOptions="Center">
+            <Border.StrokeShape><RoundRectangle CornerRadius="15"/></Border.StrokeShape>
+            <Border.Shadow><Shadow Brush="#66000000" Offset="0,8" Radius="24" Opacity="0.28"/></Border.Shadow>
+            <Grid RowDefinitions="Auto,*,Auto">
+                <Border Grid.Row="0" Padding="20,14" BackgroundColor="White" Stroke="#E1E6EC" StrokeThickness="1">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <VerticalStackLayout Spacing="1">
+                            <Label x:Name="EditorTitleLabel" Text="Nova tarefa" FontSize="20" FontAttributes="Bold" TextColor="#1E3A5F"/>
+                            <Label Text="Preencha os dados jurídicos e os prazos da atividade." FontSize="11" TextColor="#718096"/>
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1" Text="✕" FontSize="16" TextColor="#52657A" BackgroundColor="Transparent" Padding="8" Clicked="OnCloseEditorClicked"/>
+                    </Grid>
+                </Border>
+
+                <ScrollView Grid.Row="1">
+                    <VerticalStackLayout Padding="20" Spacing="13">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Descrição da tarefa *" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                            <Editor x:Name="DescriptionEditor" Placeholder="Detalhe o que deve ser realizado" AutoSize="TextChanges" MinimumHeightRequest="120" TextColor="#1E3A5F" BackgroundColor="White"/>
+                        </VerticalStackLayout>
+
+                        <Grid ColumnDefinitions="*,Auto,*" ColumnSpacing="9">
+                            <VerticalStackLayout Grid.Column="0" Spacing="5">
+                                <Label Text="Cliente *" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                                <Entry x:Name="ClientEntry" Placeholder="Nome do cliente" TextColor="#1E3A5F" BackgroundColor="White"/>
+                            </VerticalStackLayout>
+
+                            <Label Grid.Column="1" Text="x" FontSize="17" FontAttributes="Bold" TextColor="#718096"
+                                   Margin="0,26,0,0" VerticalTextAlignment="Center"/>
+
+                            <VerticalStackLayout Grid.Column="2" Spacing="5">
+                                <Label Text="Parte oposta (opcional)" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                                <Entry x:Name="CounterpartyEntry" Placeholder="Nome da parte oposta" TextColor="#1E3A5F" BackgroundColor="White"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Número do processo (opcional)" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                            <Entry x:Name="ProcessEntry" Placeholder="Preencha somente se já existir um processo" TextColor="#1E3A5F" BackgroundColor="White"/>
+                        </VerticalStackLayout>
+
+                        <Grid x:Name="DeadlineGrid" ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Prazo interno *" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                                <DatePicker x:Name="InternalDeadlinePicker" Format="dd/MM/yyyy" TextColor="#1E3A5F" BackgroundColor="White"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                <Label Text="Prazo fatal *" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                                <DatePicker x:Name="FinalDeadlinePicker" Format="dd/MM/yyyy" TextColor="#1E3A5F" BackgroundColor="White"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <Grid x:Name="ResponsibleSupervisorGrid" ColumnDefinitions="*,*" ColumnSpacing="10">
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Responsável *" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                                <Entry x:Name="ResponsibleEntry" Placeholder="Nome do responsável" TextColor="#1E3A5F" BackgroundColor="White"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                <Label Text="Supervisor" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                                <Entry x:Name="SupervisorEntry" Placeholder="Nome do supervisor" TextColor="#1E3A5F" BackgroundColor="White"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Situação *" FontSize="12" FontAttributes="Bold" TextColor="#40546A"/>
+                            <Picker x:Name="StatusPicker" Title="Selecione" TextColor="#1E3A5F" BackgroundColor="White"/>
+                        </VerticalStackLayout>
+
+                        <Border x:Name="ValidationBox" IsVisible="False" Padding="10,7" BackgroundColor="#FFECEB" Stroke="Transparent">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="7"/></Border.StrokeShape>
+                            <Label x:Name="ValidationLabel" Text="Preencha os campos obrigatórios." FontSize="11" TextColor="#AE2E24"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <Border Grid.Row="2" Padding="14,10" BackgroundColor="White" Stroke="#E1E6EC" StrokeThickness="1">
+                    <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8">
+                        <Label Text="* Campos obrigatórios" FontSize="10" TextColor="#718096" VerticalTextAlignment="Center"/>
+                        <Button Grid.Column="1" Text="Cancelar" TextColor="#1E3A5F" BackgroundColor="#EDF1F5" CornerRadius="8" Padding="14,8" Clicked="OnCloseEditorClicked"/>
+                        <Button x:Name="SaveTaskButton" Grid.Column="2" Text="Criar tarefa" TextColor="White" BackgroundColor="#1E66C2" CornerRadius="8" FontAttributes="Bold" Padding="16,8" Clicked="OnSaveTaskClicked"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border x:Name="Toast" IsVisible="False" Opacity="0" Padding="14,10" BackgroundColor="#1E3A5F" Stroke="Transparent"
+                HorizontalOptions="Center" VerticalOptions="End" Margin="18,18,18,76">
+            <Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
+            <Label x:Name="ToastLabel" TextColor="White" FontSize="12"/>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NajGravador.Views.TaskBoardPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#0C66E4"
+    Shell.NavBarIsVisible="False">
+
+    <Grid x:Name="BoardBackground" RowDefinitions="Auto,*">
+        <Border Grid.Row="0" Padding="12,9" BackgroundColor="#E6142233" Stroke="#22FFFFFF" StrokeThickness="1">
+            <Grid ColumnDefinitions="42,*,Auto,Auto,Auto,Auto" ColumnSpacing="6">
+                <Button Text="‹" FontSize="32" TextColor="White" BackgroundColor="Transparent" Padding="0"
+                        Clicked="OnBackClicked" SemanticProperties.Description="Voltar aos quadros"/>
+                <VerticalStackLayout Grid.Column="1" Spacing="0" VerticalOptions="Center">
+                    <Label x:Name="BoardNameLabel" Text="Quadro" FontSize="19" FontAttributes="Bold" TextColor="White" LineBreakMode="TailTruncation"/>
+                    <Label x:Name="BoardProgressLabel" Text="0 de 0 tarefas concluídas" FontSize="10" TextColor="#DDFFFFFF"/>
+                </VerticalStackLayout>
+                <Button x:Name="FavoriteButton" Grid.Column="2" Text="☆" FontSize="21" TextColor="White" BackgroundColor="#22FFFFFF" CornerRadius="7" Padding="8,4"
+                        Clicked="OnFavoriteClicked" SemanticProperties.Description="Favoritar quadro"/>
+                <Button x:Name="FilterButton" Grid.Column="3" Text="⌕ Filtrar" FontSize="12" TextColor="White" BackgroundColor="#22FFFFFF" CornerRadius="7" Padding="10,5"
+                        Clicked="OnFilterClicked"/>
+                <Button x:Name="ThemeButton" Grid.Column="4" Text="▧ Fundo" FontSize="12" TextColor="White" BackgroundColor="#22FFFFFF" CornerRadius="7" Padding="10,5"
+                        Clicked="OnThemeClicked"/>
+                <Button Grid.Column="5" Text="•••" FontSize="16" TextColor="White" BackgroundColor="#22FFFFFF" CornerRadius="7" Padding="10,5"
+                        Clicked="OnBoardMenuClicked" SemanticProperties.Description="Menu do quadro"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+            <Border x:Name="FilterBanner" Grid.Row="0" IsVisible="False" Margin="14,10,14,0" Padding="11,7" BackgroundColor="#F7FFFFFF" Stroke="Transparent">
+                <Border.StrokeShape><RoundRectangle CornerRadius="7"/></Border.StrokeShape>
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label x:Name="FilterLabel" Text="Filtro ativo" FontSize="12" FontAttributes="Bold" TextColor="#172B4D" VerticalTextAlignment="Center"/>
+                    <Button Grid.Column="1" Text="Limpar ✕" FontSize="11" TextColor="#0C66E4" BackgroundColor="Transparent" Padding="7,2" Clicked="OnClearFilterClicked"/>
+                </Grid>
+            </Border>
+
+            <ScrollView Grid.Row="1" Orientation="Horizontal" HorizontalScrollBarVisibility="Always">
+                <HorizontalStackLayout x:Name="ListsHost" Padding="14,14,28,28" Spacing="12" VerticalOptions="Start"/>
+            </ScrollView>
+        </Grid>
+
+        <BoxView x:Name="EditorScrim" Grid.RowSpan="2" IsVisible="False" Opacity="0" BackgroundColor="#99091420">
+            <BoxView.GestureRecognizers><TapGestureRecognizer Tapped="OnCloseEditorClicked"/></BoxView.GestureRecognizers>
+        </BoxView>
+
+        <Border x:Name="CardEditorPanel" Grid.RowSpan="2" IsVisible="False" Opacity="0" TranslationX="480" WidthRequest="470" MaximumWidthRequest="520"
+                HorizontalOptions="End" VerticalOptions="Fill" Margin="0" Padding="0" BackgroundColor="#F7F8FA" Stroke="Transparent">
+            <Grid RowDefinitions="Auto,*,Auto">
+                <Border Grid.Row="0" Padding="18,13" BackgroundColor="White" Stroke="#DFE3E8" StrokeThickness="1">
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                        <Border x:Name="EditorDoneCircle" WidthRequest="30" HeightRequest="30" BackgroundColor="White" Stroke="#8590A2" StrokeThickness="2">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="15"/></Border.StrokeShape>
+                            <Label x:Name="EditorDoneGlyph" Text="" FontSize="16" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                            <Border.GestureRecognizers><TapGestureRecognizer Tapped="OnEditorDoneTapped"/></Border.GestureRecognizers>
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="1">
+                            <Label Text="Detalhes do cartão" FontSize="17" FontAttributes="Bold" TextColor="#172B4D"/>
+                            <Label x:Name="EditorListLabel" Text="na lista" FontSize="11" TextColor="#626F86"/>
+                        </VerticalStackLayout>
+                        <Button Grid.Column="2" Text="✕" FontSize="17" TextColor="#44546F" BackgroundColor="Transparent" Padding="8" Clicked="OnCloseEditorClicked"/>
+                    </Grid>
+                </Border>
+
+                <ScrollView Grid.Row="1">
+                    <VerticalStackLayout Padding="18" Spacing="16">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Título" FontSize="12" FontAttributes="Bold" TextColor="#44546F"/>
+                            <Entry x:Name="CardTitleEntry" Placeholder="Título da tarefa" TextColor="#172B4D" BackgroundColor="White"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Descrição" FontSize="12" FontAttributes="Bold" TextColor="#44546F"/>
+                            <Editor x:Name="CardDescriptionEditor" Placeholder="Adicione uma descrição mais detalhada..." AutoSize="TextChanges" MinimumHeightRequest="88" TextColor="#172B4D" BackgroundColor="White"/>
+                        </VerticalStackLayout>
+
+                        <Grid ColumnDefinitions="Auto,*,*" ColumnSpacing="9">
+                            <CheckBox x:Name="DueDateCheckBox" Color="#0C66E4" CheckedChanged="OnDueDateEnabledChanged" VerticalOptions="Center"/>
+                            <VerticalStackLayout Grid.Column="1" Spacing="3">
+                                <Label Text="Data de entrega" FontSize="11" FontAttributes="Bold" TextColor="#44546F"/>
+                                <DatePicker x:Name="DueDatePicker" Format="dd/MM/yyyy" TextColor="#172B4D" BackgroundColor="White"/>
+                            </VerticalStackLayout>
+                            <VerticalStackLayout Grid.Column="2" Spacing="3">
+                                <Label Text="Horário" FontSize="11" FontAttributes="Bold" TextColor="#44546F"/>
+                                <TimePicker x:Name="DueTimePicker" Format="HH:mm" TextColor="#172B4D" BackgroundColor="White"/>
+                            </VerticalStackLayout>
+                        </Grid>
+
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="Responsável" FontSize="12" FontAttributes="Bold" TextColor="#44546F"/>
+                            <Entry x:Name="AssigneeEntry" Placeholder="Nome ou iniciais" TextColor="#172B4D" BackgroundColor="White"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Etiqueta" FontSize="12" FontAttributes="Bold" TextColor="#44546F"/>
+                            <Entry x:Name="LabelNameEntry" Placeholder="Ex.: Urgente, Financeiro, Cliente" TextColor="#172B4D" BackgroundColor="White"/>
+                            <FlexLayout x:Name="LabelColorsHost" Direction="Row" Wrap="Wrap"/>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="Cor do cartão" FontSize="12" FontAttributes="Bold" TextColor="#44546F"/>
+                            <FlexLayout x:Name="CardColorsHost" Direction="Row" Wrap="Wrap"/>
+                        </VerticalStackLayout>
+
+                        <Border Padding="14" BackgroundColor="White" Stroke="#DFE3E8" StrokeThickness="1">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="9"/></Border.StrokeShape>
+                            <VerticalStackLayout Spacing="9">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Text="☑ Checklist" FontSize="14" FontAttributes="Bold" TextColor="#172B4D"/>
+                                    <Label x:Name="ChecklistPercentLabel" Grid.Column="1" Text="0%" FontSize="11" FontAttributes="Bold" TextColor="#626F86"/>
+                                </Grid>
+                                <ProgressBar x:Name="ChecklistProgress" Progress="0" ProgressColor="#22A06B" BackgroundColor="#DCDFE4" HeightRequest="5"/>
+                                <VerticalStackLayout x:Name="ChecklistHost" Spacing="5"/>
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="7">
+                                    <Entry x:Name="NewChecklistEntry" Placeholder="Adicionar item" TextColor="#172B4D" BackgroundColor="#F1F2F4" ReturnType="Done" Completed="OnAddChecklistClicked"/>
+                                    <Button Grid.Column="1" Text="＋" FontSize="19" TextColor="White" BackgroundColor="#0C66E4" CornerRadius="7" Padding="11,4" Clicked="OnAddChecklistClicked"/>
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Padding="14" BackgroundColor="White" Stroke="#DFE3E8" StrokeThickness="1">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="9"/></Border.StrokeShape>
+                            <VerticalStackLayout Spacing="9">
+                                <Grid ColumnDefinitions="*,Auto">
+                                    <Label Text="⌕ Anexos" FontSize="14" FontAttributes="Bold" TextColor="#172B4D"/>
+                                    <Button Grid.Column="1" Text="＋ Adicionar" FontSize="11" TextColor="#0C66E4" BackgroundColor="#E9F2FF" CornerRadius="6" Padding="9,4" Clicked="OnAddAttachmentClicked"/>
+                                </Grid>
+                                <VerticalStackLayout x:Name="AttachmentsHost" Spacing="7"/>
+                                <Label x:Name="NoAttachmentsLabel" Text="Nenhum anexo" FontSize="11" TextColor="#8590A2"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Border Padding="14" BackgroundColor="White" Stroke="#DFE3E8" StrokeThickness="1">
+                            <Border.StrokeShape><RoundRectangle CornerRadius="9"/></Border.StrokeShape>
+                            <VerticalStackLayout Spacing="9">
+                                <Label Text="☷ Comentários e atividade" FontSize="14" FontAttributes="Bold" TextColor="#172B4D"/>
+                                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="7">
+                                    <Entry x:Name="NewCommentEntry" Placeholder="Escreva um comentário..." TextColor="#172B4D" BackgroundColor="#F1F2F4" ReturnType="Send" Completed="OnAddCommentClicked"/>
+                                    <Button Grid.Column="1" Text="Enviar" FontSize="11" TextColor="White" BackgroundColor="#0C66E4" CornerRadius="7" Clicked="OnAddCommentClicked"/>
+                                </Grid>
+                                <VerticalStackLayout x:Name="CommentsHost" Spacing="8"/>
+                            </VerticalStackLayout>
+                        </Border>
+
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                            <Button Text="⇄ Mover / copiar" TextColor="#172B4D" BackgroundColor="#DCDFE4" CornerRadius="7" Clicked="OnMoveCopyCardClicked"/>
+                            <Button Grid.Column="1" Text="🗑 Excluir cartão" TextColor="#AE2E24" BackgroundColor="#FFECEB" CornerRadius="7" Clicked="OnDeleteCardClicked"/>
+                        </Grid>
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <Border Grid.Row="2" Padding="14,10" BackgroundColor="White" Stroke="#DFE3E8" StrokeThickness="1">
+                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                        <Label x:Name="SaveHintLabel" Text="Alterações são salvas neste dispositivo" FontSize="10" TextColor="#626F86" VerticalTextAlignment="Center"/>
+                        <Button Grid.Column="1" Text="Salvar alterações" TextColor="White" BackgroundColor="#0C66E4" CornerRadius="7" FontAttributes="Bold" Padding="16,8" Clicked="OnSaveCardClicked"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Border x:Name="Toast" Grid.RowSpan="2" IsVisible="False" Opacity="0" Padding="14,10" BackgroundColor="#172B4D" Stroke="Transparent"
+                HorizontalOptions="Center" VerticalOptions="End" Margin="18,18,18,28">
+            <Border.StrokeShape><RoundRectangle CornerRadius="8"/></Border.StrokeShape>
+            <Label x:Name="ToastLabel" TextColor="White" FontSize="12"/>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,490 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="NajGravador.Views.MainPage"
+    BackgroundColor="White"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Cabeçalho -->
+        <Grid
+            Grid.Row="0"
+            Padding="20,16"
+            ColumnDefinitions="44,*,44"
+            BackgroundColor="White">
+
+            <!-- Menu -->
+            <Button
+                Grid.Column="0"
+                Text="☰"
+                FontSize="24"
+                TextColor="#1E3A5F"
+                BackgroundColor="Transparent"
+                Padding="0"/>
+
+            <!-- Logo da NAJ -->
+            <Image
+                Grid.Column="1"
+                Source="logo_naj.png"
+                HeightRequest="48"
+                HorizontalOptions="Center"
+                Aspect="AspectFit"/>
+
+            <!-- Perfil -->
+            <Button
+                Grid.Column="2"
+                Text="●"
+                FontSize="20"
+                TextColor="#1E3A5F"
+                BackgroundColor="Transparent"
+                Padding="0"/>
+
+        </Grid>
+
+        <!-- Conteúdo da tela -->
+        <ScrollView Grid.Row="1">
+        <VerticalStackLayout
+            Padding="24,24"
+            Spacing="8">
+
+            <Label
+                Text="Olá!"
+                FontSize="26"
+                FontAttributes="Bold"
+                TextColor="#1E3A5F"/>
+
+            <Label
+                Text="Selecione uma funcionalidade"
+                FontSize="16"
+                TextColor="#666666"/>
+            <Border
+                Margin="0,24,0,0"
+                Padding="18,18,10,18"
+                HeightRequest="86"
+                BackgroundColor="White"
+                Stroke="#E2E6EA"
+                StrokeThickness="1">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnRecordingsTapped"/>
+                </Border.GestureRecognizers>
+
+                <Grid ColumnDefinitions="56,*,32">
+
+                    <!-- Ícone de gravação -->
+                    <Border
+                        Grid.Column="0"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        BackgroundColor="#FDEBEC"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24"/>
+                        </Border.StrokeShape>
+
+                        <Image
+                            Source="microphone.svg"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Aspect="AspectFit"/>
+
+                    </Border>
+
+                    <!-- Texto -->
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Margin="12,0"
+                        Spacing="3"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="Gravar comandos de voz"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#1E3A5F"
+                            MaxLines="1"
+                            LineBreakMode="TailTruncation"/>
+
+                        <Label
+                            Text="Grave e organize seus áudios"
+                            FontSize="11"
+                            TextColor="#707070"
+                            MaxLines="1"
+                            LineBreakMode="TailTruncation"/>
+
+                    </VerticalStackLayout>
+
+                    <!-- Seta -->
+                    <Label
+                        Grid.Column="2"
+                        Text="›"
+                        FontSize="30"
+                        TextColor="#1E3A5F"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+            <!-- Card: Minhas tarefas -->
+            <Border
+                x:Name="TasksCard"
+                Margin="0,8,0,0"
+                Padding="18,18,10,18"
+                HeightRequest="86"
+                BackgroundColor="White"
+                Stroke="#E2E6EA"
+                StrokeThickness="1">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTasksTapped"/>
+                </Border.GestureRecognizers>
+
+                <Grid ColumnDefinitions="56,*,32">
+
+                    <Border
+                        Grid.Column="0"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        BackgroundColor="#EAF1F8"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24"/>
+                        </Border.StrokeShape>
+
+                        <Label
+                            Text="✓"
+                            FontSize="24"
+                            TextColor="#1E3A5F"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"/>
+
+                    </Border>
+
+                    <Grid
+                        Grid.Column="1"
+                        Margin="12,0"
+                        ColumnDefinitions="*,Auto"
+                        RowDefinitions="Auto,Auto"
+                        RowSpacing="3"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="Minhas tarefas"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#1E3A5F"
+                            MaxLines="1"
+                            LineBreakMode="TailTruncation"/>
+
+                        <HorizontalStackLayout
+                            Grid.Column="1"
+                            Spacing="3"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center">
+                            <Border
+                                x:Name="OverdueTasksBadge"
+                                WidthRequest="24"
+                                HeightRequest="24"
+                                Padding="0"
+                                BackgroundColor="#D92D20"
+                                Stroke="White"
+                                StrokeThickness="1.5"
+                                IsVisible="False">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Label
+                                    x:Name="OverdueTasksBadgeLabel"
+                                    FontSize="10"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center"/>
+                            </Border>
+                            <Border
+                                x:Name="TodayTasksBadge"
+                                WidthRequest="24"
+                                HeightRequest="24"
+                                Padding="0"
+                                BackgroundColor="#579DFF"
+                                Stroke="White"
+                                StrokeThickness="1.5"
+                                IsVisible="False">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Label
+                                    x:Name="TodayTasksBadgeLabel"
+                                    FontSize="10"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center"/>
+                            </Border>
+                        </HorizontalStackLayout>
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Text="Controle atividades, processos e prazos"
+                            FontSize="11"
+                            TextColor="#707070"
+                            MaxLines="1"
+                            LineBreakMode="TailTruncation"
+                            VerticalTextAlignment="Center"/>
+
+                    </Grid>
+
+                    <Label
+                        Grid.Column="2"
+                        Text="›"
+                        FontSize="30"
+                        TextColor="#1E3A5F"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+
+            <!-- Card: Minha agenda -->
+            <Border
+                x:Name="CalendarCard"
+                Margin="0,8,0,0"
+                Padding="18,18,10,18"
+                HeightRequest="86"
+                BackgroundColor="White"
+                Stroke="#E2E6EA"
+                StrokeThickness="1">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCalendarTapped"/>
+                </Border.GestureRecognizers>
+
+                <Grid ColumnDefinitions="56,*,32">
+
+                    <Border
+                        Grid.Column="0"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        BackgroundColor="#EAF1F8"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24"/>
+                        </Border.StrokeShape>
+
+                        <Image
+                            Source="calendar_naj.svg"
+                            WidthRequest="29"
+                            HeightRequest="29"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"/>
+
+                    </Border>
+
+                    <Grid
+                        Grid.Column="1"
+                        Margin="12,0"
+                        ColumnDefinitions="*,Auto"
+                        RowDefinitions="Auto,Auto"
+                        RowSpacing="3"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="Minha agenda"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#1E3A5F"
+                            MaxLines="1"
+                            LineBreakMode="TailTruncation"/>
+
+                        <HorizontalStackLayout
+                            Grid.Column="1"
+                            Spacing="3"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center">
+                            <Border
+                                x:Name="OverdueCalendarBadge"
+                                WidthRequest="24"
+                                HeightRequest="24"
+                                Padding="0"
+                                BackgroundColor="#D92D20"
+                                Stroke="White"
+                                StrokeThickness="1.5"
+                                IsVisible="False">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Label
+                                    x:Name="OverdueCalendarBadgeLabel"
+                                    FontSize="10"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center"/>
+                            </Border>
+                            <Border
+                                x:Name="TodayCalendarBadge"
+                                WidthRequest="24"
+                                HeightRequest="24"
+                                Padding="0"
+                                BackgroundColor="#579DFF"
+                                Stroke="White"
+                                StrokeThickness="1.5"
+                                IsVisible="False">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12"/>
+                                </Border.StrokeShape>
+                                <Label
+                                    x:Name="TodayCalendarBadgeLabel"
+                                    FontSize="10"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalTextAlignment="Center"
+                                    VerticalTextAlignment="Center"/>
+                            </Border>
+                        </HorizontalStackLayout>
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Text="Organize compromissos e horários"
+                            FontSize="11"
+                            TextColor="#707070"
+                            MaxLines="1"
+                            LineBreakMode="TailTruncation"
+                            VerticalTextAlignment="Center"/>
+
+                    </Grid>
+
+                    <Label
+                        Grid.Column="2"
+                        Text="›"
+                        FontSize="30"
+                        TextColor="#1E3A5F"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+
+            <!-- Card: Chat interno (reservado; sem navegação por enquanto) -->
+            <Border
+                x:Name="InternalChatCard"
+                Margin="0,8,0,0"
+                Padding="18,18,10,18"
+                HeightRequest="86"
+                BackgroundColor="White"
+                Stroke="#E2E6EA"
+                StrokeThickness="1">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="14"/>
+                </Border.StrokeShape>
+
+                <Grid ColumnDefinitions="56,*,32">
+                    <Border
+                        Grid.Column="0"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        BackgroundColor="#E8F7FC"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24"/>
+                        </Border.StrokeShape>
+                        <Label
+                            Text="&#x1F4AC;"
+                            FontSize="22"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"/>
+                    </Border>
+
+                    <Grid
+                        Grid.Column="1"
+                        Margin="12,0"
+                        ColumnDefinitions="*,Auto"
+                        RowDefinitions="Auto,Auto"
+                        RowSpacing="3"
+                        VerticalOptions="Center">
+                        <Label
+                            Text="Chat interno"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="#1E3A5F"
+                            MaxLines="1"
+                            LineBreakMode="TailTruncation"/>
+                        <Border
+                            x:Name="UnreadChatBadge"
+                            Grid.Column="1"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            Padding="0"
+                            BackgroundColor="#42BDEB"
+                            Stroke="White"
+                            StrokeThickness="1.5"
+                            IsVisible="False">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12"/>
+                            </Border.StrokeShape>
+                            <Label
+                                x:Name="UnreadChatBadgeLabel"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="White"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"/>
+                        </Border>
+                        <Label
+                            Grid.Row="1"
+                            Grid.ColumnSpan="2"
+                            Text="Converse com sua equipe"
+                            FontSize="11"
+                            TextColor="#707070"
+                            MaxLines="1"
+                            LineBreakMode="TailTruncation"
+                            VerticalTextAlignment="Center"/>
+                    </Grid>
+
+                    <Label
+                        Grid.Column="2"
+                        Text="›"
+                        FontSize="30"
+                        TextColor="#1E3A5F"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center"/>
+
+                </Grid>
+
+            </Border>
+        </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+
+</ContentPage>

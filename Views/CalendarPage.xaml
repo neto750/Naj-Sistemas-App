@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    x:Class="NajGravador.Views.CalendarPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="#F7F9FC"
+    Shell.NavBarIsVisible="False">
+
+    <Grid>
+        <Grid RowDefinitions="Auto,Auto,*">
+            <!-- Cabeçalho NAJ -->
+            <Border
+                Grid.Row="0"
+                Padding="14,10"
+                BackgroundColor="White"
+                Stroke="#E4E9F0"
+                StrokeThickness="1">
+                <Grid ColumnDefinitions="44,58,*" ColumnSpacing="8">
+                    <Button
+                        Grid.Column="0"
+                        Text="‹"
+                        FontSize="32"
+                        TextColor="#1E3A5F"
+                        BackgroundColor="Transparent"
+                        Padding="0"
+                        Clicked="OnBackClicked"
+                        SemanticProperties.Description="Voltar"/>
+
+                    <Image
+                        Grid.Column="1"
+                        Source="logo_naj.png"
+                        WidthRequest="54"
+                        HeightRequest="38"
+                        Aspect="AspectFit"
+                        VerticalOptions="Center"/>
+
+                    <VerticalStackLayout Grid.Column="2" Spacing="0" VerticalOptions="Center">
+                        <Label
+                            Text="Minha agenda"
+                            FontSize="20"
+                            FontAttributes="Bold"
+                            TextColor="#1E3A5F"/>
+                        <Label
+                            Text="NAJ Sistemas"
+                            FontSize="11"
+                            TextColor="#718096"/>
+                    </VerticalStackLayout>
+
+                </Grid>
+            </Border>
+
+            <!-- Navegação e modos de visualização -->
+            <Border
+                Grid.Row="1"
+                Padding="14,10,14,12"
+                BackgroundColor="White"
+                Stroke="#E4E9F0"
+                StrokeThickness="1">
+                <VerticalStackLayout Spacing="10">
+                    <Grid ColumnDefinitions="Auto,Auto,Auto,*" ColumnSpacing="7">
+                        <Button
+                            Text="Hoje"
+                            FontSize="13"
+                            FontAttributes="Bold"
+                            TextColor="#1E3A5F"
+                            BackgroundColor="White"
+                            BorderColor="#CAD4E0"
+                            BorderWidth="1"
+                            CornerRadius="18"
+                            Padding="14,6"
+                            HeightRequest="38"
+                            Clicked="OnTodayClicked"/>
+                        <Button
+                            Grid.Column="1"
+                            Text="‹"
+                            FontSize="25"
+                            TextColor="#1E3A5F"
+                            BackgroundColor="#F2F6FA"
+                            CornerRadius="18"
+                            Padding="0"
+                            WidthRequest="38"
+                            HeightRequest="38"
+                            Clicked="OnPreviousClicked"
+                            SemanticProperties.Description="Período anterior"/>
+                        <Button
+                            Grid.Column="2"
+                            Text="›"
+                            FontSize="25"
+                            TextColor="#1E3A5F"
+                            BackgroundColor="#F2F6FA"
+                            CornerRadius="18"
+                            Padding="0"
+                            WidthRequest="38"
+                            HeightRequest="38"
+                            Clicked="OnNextClicked"
+                            SemanticProperties.Description="Próximo período"/>
+                        <Button
+                            x:Name="MonthYearButton"
+                            Grid.Column="3"
+                            Text="Agosto de 2026 ⌄"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            TextColor="#1E3A5F"
+                            BackgroundColor="Transparent"
+                            HorizontalOptions="End"
+                            Padding="8,0"
+                            Clicked="OnMonthYearClicked"/>
+                    </Grid>
+
+                    <Border
+                        Padding="3"
+                        BackgroundColor="#EFF3F8"
+                        Stroke="Transparent"
+                        HorizontalOptions="Center">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20"/>
+                        </Border.StrokeShape>
+                        <Grid ColumnDefinitions="*,*,*" ColumnSpacing="2" WidthRequest="276">
+                            <Button
+                                x:Name="MonthViewButton"
+                                Text="Mês"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="White"
+                                BackgroundColor="#1E66C2"
+                                CornerRadius="17"
+                                HeightRequest="35"
+                                Padding="12,4"
+                                Clicked="OnMonthViewClicked"/>
+                            <Button
+                                x:Name="DayViewButton"
+                                Grid.Column="1"
+                                Text="Dia"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="#516071"
+                                BackgroundColor="Transparent"
+                                CornerRadius="17"
+                                HeightRequest="35"
+                                Padding="12,4"
+                                Clicked="OnDayViewClicked"/>
+                            <Button
+                                x:Name="ListModeButton"
+                                Grid.Column="2"
+                                Text="Listagem"
+                                FontSize="13"
+                                FontAttributes="Bold"
+                                TextColor="#516071"
+                                BackgroundColor="Transparent"
+                                CornerRadius="17"
+                                HeightRequest="35"
+                                Padding="12,4"
+                                Clicked="OnListViewClicked"/>
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Visão mensal -->
+            <ScrollView x:Name="MonthView" Grid.Row="2">
+                <ScrollView.GestureRecognizers>
+                    <SwipeGestureRecognizer Direction="Left" Swiped="OnMonthSwipedLeft"/>
+                    <SwipeGestureRecognizer Direction="Right" Swiped="OnMonthSwipedRight"/>
+                </ScrollView.GestureRecognizers>
+                <VerticalStackLayout Padding="12,14,12,110" Spacing="10" MaximumWidthRequest="1180">
+                    <Border Padding="0" BackgroundColor="White" Stroke="#DDE4EC">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16"/>
+                        </Border.StrokeShape>
+                        <Grid RowDefinitions="42,*">
+                            <Grid
+                                Padding="4,0"
+                                BackgroundColor="#F7F9FC"
+                                ColumnDefinitions="*,*,*,*,*,*,*">
+                                <Label Grid.Column="0" Text="DOM" Style="{StaticResource CalendarWeekdayStyle}"/>
+                                <Label Grid.Column="1" Text="SEG" Style="{StaticResource CalendarWeekdayStyle}"/>
+                                <Label Grid.Column="2" Text="TER" Style="{StaticResource CalendarWeekdayStyle}"/>
+                                <Label Grid.Column="3" Text="QUA" Style="{StaticResource CalendarWeekdayStyle}"/>
+                                <Label Grid.Column="4" Text="QUI" Style="{StaticResource CalendarWeekdayStyle}"/>
+                                <Label Grid.Column="5" Text="SEX" Style="{StaticResource CalendarWeekdayStyle}"/>
+                                <Label Grid.Column="6" Text="SÁB" Style="{StaticResource CalendarWeekdayStyle}"/>
+                            </Grid>
+                            <Grid x:Name="MonthGridHost" Grid.Row="1"/>
+                        </Grid>
+                    </Border>
+                    <Label
+                        Text="Toque em um dia para abrir os horários. Toque em um compromisso para editá-lo."
+                        FontSize="12"
+                        TextColor="#718096"
+                        HorizontalTextAlignment="Center"/>
+                </VerticalStackLayout>
+            </ScrollView>
+
+            <!-- Visão diária com 24 horas -->
+            <Grid x:Name="DayView" Grid.Row="2" IsVisible="False" RowDefinitions="Auto,*">
+                <Border Padding="16,11" BackgroundColor="#F0F6FE" Stroke="Transparent">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="12">
+                        <Border
+                            WidthRequest="48"
+                            HeightRequest="48"
+                            BackgroundColor="#1E66C2"
+                            Stroke="Transparent">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="24"/>
+                            </Border.StrokeShape>
+                            <Label
+                                x:Name="SelectedDayNumberLabel"
+                                Text="13"
+                                FontSize="20"
+                                FontAttributes="Bold"
+                                TextColor="White"
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"/>
+                        </Border>
+                        <VerticalStackLayout Grid.Column="1" Spacing="1" VerticalOptions="Center">
+                            <Label x:Name="SelectedDayTitleLabel" Text="Quinta-feira" FontSize="17" FontAttributes="Bold" TextColor="#1E3A5F"/>
+                            <Label x:Name="SelectedDaySubtitleLabel" Text="13 de agosto de 2026" FontSize="12" TextColor="#66778A"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+                <ScrollView x:Name="DayScrollView" Grid.Row="1">
+                    <VerticalStackLayout Padding="8,8,12,110" Spacing="0">
+                        <VerticalStackLayout x:Name="AllDayEventsHost" Spacing="5"/>
+                        <VerticalStackLayout x:Name="DayTimelineHost" Spacing="0"/>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Grid>
+
+            <!-- Lista cronológica -->
+            <ScrollView x:Name="ListModeView" Grid.Row="2" IsVisible="False">
+                <VerticalStackLayout x:Name="ListModeHost" Padding="14,16,14,110" Spacing="12" MaximumWidthRequest="900"/>
+            </ScrollView>
+
+        </Grid>
+
+        <!-- Escurece o conteúdo para destacar o menu de criação -->
+        <Grid
+            x:Name="CreationMenuScrim"
+            IsVisible="False"
+            Opacity="0"
+            BackgroundColor="#730D1B2A">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCreationScrimTapped"/>
+            </Grid.GestureRecognizers>
+        </Grid>
+
+        <!-- Ações de criação, empilhadas acima do botão flutuante -->
+        <VerticalStackLayout
+            x:Name="CreationActionsHost"
+            IsVisible="False"
+            Margin="20,0,0,92"
+            Spacing="12"
+            HorizontalOptions="Start"
+            VerticalOptions="End">
+
+            <Grid x:Name="BirthdayAction" Opacity="0" TranslationY="22" ColumnDefinitions="56,Auto" ColumnSpacing="10" HorizontalOptions="Start">
+                <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnCreateBirthdayTapped"/></Grid.GestureRecognizers>
+                <Border Grid.Column="1" Padding="12,7" BackgroundColor="White" Stroke="Transparent" VerticalOptions="Center" Shadow="{Shadow Brush=#26000000, Offset='0,2', Radius=8}">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="9"/></Border.StrokeShape>
+                    <Label Text="Aniversário" FontSize="13" FontAttributes="Bold" TextColor="#1F2937"/>
+                </Border>
+                <Border WidthRequest="52" HeightRequest="52" Padding="11" BackgroundColor="White" Stroke="Transparent" Shadow="{Shadow Brush=#33000000, Offset='0,3', Radius=10}">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="26"/></Border.StrokeShape>
+                    <Image Source="calendar_birthday.svg" Aspect="AspectFit"/>
+                </Border>
+            </Grid>
+
+            <Grid x:Name="EventAction" Opacity="0" TranslationY="22" ColumnDefinitions="56,Auto" ColumnSpacing="10" HorizontalOptions="Start">
+                <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnCreateEventTapped"/></Grid.GestureRecognizers>
+                <Border Grid.Column="1" Padding="12,7" BackgroundColor="White" Stroke="Transparent" VerticalOptions="Center" Shadow="{Shadow Brush=#26000000, Offset='0,2', Radius=8}">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="9"/></Border.StrokeShape>
+                    <Label Text="Evento" FontSize="13" FontAttributes="Bold" TextColor="#1F2937"/>
+                </Border>
+                <Border WidthRequest="52" HeightRequest="52" Padding="11" BackgroundColor="White" Stroke="Transparent" Shadow="{Shadow Brush=#33000000, Offset='0,3', Radius=10}">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="26"/></Border.StrokeShape>
+                    <Image Source="calendar_event.svg" Aspect="AspectFit"/>
+                </Border>
+            </Grid>
+
+            <Grid x:Name="TaskAction" Opacity="0" TranslationY="22" ColumnDefinitions="56,Auto" ColumnSpacing="10" HorizontalOptions="Start">
+                <Grid.GestureRecognizers><TapGestureRecognizer Tapped="OnCreateTaskTapped"/></Grid.GestureRecognizers>
+                <Border Grid.Column="1" Padding="12,7" BackgroundColor="White" Stroke="Transparent" VerticalOptions="Center" Shadow="{Shadow Brush=#26000000, Offset='0,2', Radius=8}">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="9"/></Border.StrokeShape>
+                    <Label Text="Tarefa" FontSize="13" FontAttributes="Bold" TextColor="#1F2937"/>
+                </Border>
+                <Border WidthRequest="52" HeightRequest="52" Padding="11" BackgroundColor="White" Stroke="Transparent" Shadow="{Shadow Brush=#33000000, Offset='0,3', Radius=10}">
+                    <Border.StrokeShape><RoundRectangle CornerRadius="26"/></Border.StrokeShape>
+                    <Image Source="calendar_task.svg" Aspect="AspectFit"/>
+                </Border>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Único botão de criação; gira de + para × -->
+        <Border
+            x:Name="FloatingCreateButton"
+            Margin="20,0,0,22"
+            Padding="0"
+            BackgroundColor="#E32636"
+            Stroke="Transparent"
+            HorizontalOptions="Start"
+            VerticalOptions="End"
+            WidthRequest="58"
+            HeightRequest="58"
+            Shadow="{Shadow Brush=#40000000, Offset='0,4', Radius=12}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="29"/>
+            </Border.StrokeShape>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnFloatingCreateTapped"/>
+            </Border.GestureRecognizers>
+            <Label x:Name="FloatingCreateGlyph" Text="+" FontSize="31" FontAttributes="Bold" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Border>
+
+        <!-- Seletor rápido de mês e ano -->
+        <Grid x:Name="MonthPickerOverlay" IsVisible="False" BackgroundColor="#660D1B2A" Padding="18">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnMonthPickerBackdropTapped"/>
+            </Grid.GestureRecognizers>
+            <Border
+                x:Name="MonthPickerCard"
+                Padding="18"
+                BackgroundColor="White"
+                Stroke="Transparent"
+                MaximumWidthRequest="390"
+                VerticalOptions="Center"
+                Shadow="{Shadow Brush=#33000000, Offset='0,8', Radius=18}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayCardTapped"/>
+                </Border.GestureRecognizers>
+                <VerticalStackLayout Spacing="16">
+                    <Grid ColumnDefinitions="44,*,44">
+                        <Button Text="‹" FontSize="27" TextColor="#1E3A5F" BackgroundColor="#F2F6FA" CornerRadius="20" Padding="0" Clicked="OnPickerPreviousYearClicked"/>
+                        <Label x:Name="PickerYearLabel" Grid.Column="1" Text="2026" FontSize="22" FontAttributes="Bold" TextColor="#1E3A5F" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                        <Button Grid.Column="2" Text="›" FontSize="27" TextColor="#1E3A5F" BackgroundColor="#F2F6FA" CornerRadius="20" Padding="0" Clicked="OnPickerNextYearClicked"/>
+                    </Grid>
+                    <Grid x:Name="MonthPickerGrid" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="*,*,*,*" RowSpacing="8" ColumnSpacing="8"/>
+                    <Button Text="Cancelar" TextColor="#1E3A5F" BackgroundColor="Transparent" HorizontalOptions="End" Clicked="OnCloseMonthPickerClicked"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <!-- Editor de compromisso -->
+        <Grid x:Name="EventEditorOverlay" IsVisible="False" BackgroundColor="#730D1B2A" Padding="12,42,12,18">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnEditorBackdropTapped"/>
+            </Grid.GestureRecognizers>
+            <Border
+                x:Name="EventEditorCard"
+                BackgroundColor="White"
+                Stroke="Transparent"
+                MaximumWidthRequest="620"
+                VerticalOptions="Fill"
+                Shadow="{Shadow Brush=#40000000, Offset='0,8', Radius=20}">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22"/>
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnOverlayCardTapped"/>
+                </Border.GestureRecognizers>
+                <Grid RowDefinitions="Auto,*,Auto">
+                    <Grid Padding="18,14" ColumnDefinitions="*,44" BackgroundColor="#F7F9FC">
+                        <VerticalStackLayout Spacing="1">
+                            <Label x:Name="EditorHeadingLabel" Text="Novo compromisso" FontSize="20" FontAttributes="Bold" TextColor="#1E3A5F"/>
+                            <Label x:Name="EditorSubtitleLabel" Text="Preencha os detalhes da sua agenda" FontSize="11" TextColor="#4A5568"/>
+                        </VerticalStackLayout>
+                        <Button Grid.Column="1" Text="×" FontSize="27" TextColor="#516071" BackgroundColor="Transparent" Padding="0" Clicked="OnCloseEditorClicked"/>
+                    </Grid>
+
+                    <ScrollView Grid.Row="1">
+                        <VerticalStackLayout Padding="20,16" Spacing="14">
+                            <VerticalStackLayout Spacing="5">
+                                <Label x:Name="TitleFieldLabel" Text="Título *" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                    <Entry x:Name="TitleEntry" Placeholder="Adicionar título" FontSize="17" ReturnType="Next"/>
+                                </Border>
+                                <Label x:Name="TitleValidationLabel" Text="Informe um título para continuar." FontSize="11" TextColor="#C62828" IsVisible="False"/>
+                            </VerticalStackLayout>
+
+                            <Grid x:Name="DateAndAllDayGrid" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label x:Name="DateFieldLabel" Text="Data" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                    <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                        <DatePicker x:Name="EventDatePicker" Format="dd/MM/yyyy" DateSelected="OnEventDateSelected"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout x:Name="AllDayField" Grid.Column="1" Spacing="5" WidthRequest="112">
+                                    <Label Text="Dia inteiro" Style="{StaticResource CalendarFieldLabelStyle}" HorizontalTextAlignment="Center"/>
+                                    <Switch x:Name="AllDaySwitch" OnColor="#1E66C2" Toggled="OnAllDayToggled" HorizontalOptions="Center"/>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <Grid x:Name="TaskDeadlineGrid" IsVisible="False" ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="Prazo" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                    <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                        <DatePicker x:Name="TaskDeadlineDatePicker" Format="dd/MM/yyyy"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                    <Label Text="Horário limite" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                    <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                        <TimePicker x:Name="TaskDeadlineTimePicker" Format="HH:mm"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <Grid x:Name="TimeFieldsGrid" ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="Início" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                    <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                        <TimePicker x:Name="StartTimePicker" Format="HH:mm" PropertyChanged="OnStartTimePropertyChanged"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                    <Label Text="Término" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                    <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                        <TimePicker x:Name="EndTimePicker" Format="HH:mm"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Grid>
+                            <Label x:Name="TimeValidationLabel" Text="O término precisa ser posterior ao início." FontSize="11" TextColor="#C62828" IsVisible="False"/>
+
+                            <Grid x:Name="RecurrenceReminderGrid" ColumnDefinitions="*,*" ColumnSpacing="12">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="Repetir" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                    <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                        <Picker x:Name="RecurrencePicker" Title="Não se repete"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                                    <Label Text="Lembrete" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                    <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                        <Picker x:Name="ReminderPicker" Title="10 minutos antes"/>
+                                    </Border>
+                                </VerticalStackLayout>
+                            </Grid>
+
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Cor do compromisso" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                <HorizontalStackLayout Spacing="10">
+                                    <Button StyleId="#1E66C2" BackgroundColor="#1E66C2" Style="{StaticResource CalendarColorButtonStyle}" Clicked="OnColorClicked"/>
+                                    <Button StyleId="#E32636" BackgroundColor="#E32636" Style="{StaticResource CalendarColorButtonStyle}" Clicked="OnColorClicked"/>
+                                    <Button StyleId="#16856B" BackgroundColor="#16856B" Style="{StaticResource CalendarColorButtonStyle}" Clicked="OnColorClicked"/>
+                                    <Button StyleId="#8E5BB7" BackgroundColor="#8E5BB7" Style="{StaticResource CalendarColorButtonStyle}" Clicked="OnColorClicked"/>
+                                    <Button StyleId="#E58A19" BackgroundColor="#E58A19" Style="{StaticResource CalendarColorButtonStyle}" Clicked="OnColorClicked"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Local" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                <Border Style="{StaticResource CalendarInputBorderStyle}">
+                                    <Entry x:Name="LocationEntry" Placeholder="Adicionar local" ReturnType="Next"/>
+                                </Border>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Spacing="5">
+                                <Label Text="Observações" Style="{StaticResource CalendarFieldLabelStyle}"/>
+                                <Border Style="{StaticResource CalendarInputBorderStyle}" HeightRequest="94">
+                                    <Editor x:Name="DescriptionEditor" Placeholder="Adicionar descrição" AutoSize="TextChanges"/>
+                                </Border>
+                            </VerticalStackLayout>
+                        </VerticalStackLayout>
+                    </ScrollView>
+
+                    <Grid Grid.Row="2" Padding="16,12" ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="8" BackgroundColor="#F7F9FC">
+                        <Button
+                            x:Name="DeleteEventButton"
+                            Text="Excluir"
+                            TextColor="#C62828"
+                            BackgroundColor="Transparent"
+                            IsVisible="False"
+                            Clicked="OnDeleteEventClicked"/>
+                        <Button Grid.Column="2" Text="Cancelar" TextColor="#1E3A5F" BackgroundColor="Transparent" Clicked="OnCloseEditorClicked"/>
+                        <Button Grid.Column="3" Text="Salvar" FontAttributes="Bold" TextColor="White" BackgroundColor="#1E66C2" CornerRadius="18" Padding="20,8" Clicked="OnSaveEventClicked"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Mensagem de confirmação -->
+        <Border
+            x:Name="ToastBorder"
+            IsVisible="False"
+            Opacity="0"
+            Margin="20,0,20,24"
+            Padding="18,12"
+            BackgroundColor="#1E3A5F"
+            Stroke="Transparent"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            InputTransparent="True">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="12"/>
+            </Border.StrokeShape>
+            <Label x:Name="ToastLabel" Text="Compromisso salvo" FontSize="13" FontAttributes="Bold" TextColor="White"/>
+        </Border>
+    </Grid>
+
+    <ContentPage.Resources>
+        <Style x:Key="CalendarWeekdayStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#718096"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="VerticalTextAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="CalendarFieldLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="#4A5A6A"/>
+        </Style>
+        <Style x:Key="CalendarInputBorderStyle" TargetType="Border">
+            <Setter Property="Padding" Value="10,2"/>
+            <Setter Property="BackgroundColor" Value="#F8FAFC"/>
+            <Setter Property="Stroke" Value="#D9E1EA"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
+        </Style>
+        <Style x:Key="CalendarColorButtonStyle" TargetType="Button">
+            <Setter Property="WidthRequest" Value="38"/>
+            <Setter Property="HeightRequest" Value="38"/>
+            <Setter Property="CornerRadius" Value="19"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="17"/>
+        </Style>
+    </ContentPage.Resources>
+</ContentPage>

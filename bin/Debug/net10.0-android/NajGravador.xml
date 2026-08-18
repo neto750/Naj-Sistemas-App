@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NajGravador</name>
+    </assembly>
+    <members>
+        <member name="T:NajGravador.Services.AudioRecorderService">
+            <summary>
+            Grava o PCM recebido do streamer no WAV e calcula o RMS do mesmo buffer.
+            A onda e o arquivo, portanto, sempre representam exatamente o mesmo áudio.
+            </summary>
+        </member>
+        <member name="T:NajGravador.Views.WaveformDrawable">
+            <summary>
+            Onda compacta no estilo Samsung, com trecho percorrido e playhead arrastável.
+            </summary>
+        </member>
+        <member name="T:NajGravador.Resource">
+            <summary>
+            Android Resource Designer class.
+            Exposes the Android Resource designer assembly into the project Namespace.
+            </summary>
+        </member>
+    </members>
+</doc>

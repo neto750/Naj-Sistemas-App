@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="NajGravador.Views.RecordingPage"
+    BackgroundColor="White"
+    Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+        <!-- Cabeçalho -->
+        <Grid
+            Grid.Row="0"
+            Padding="16"
+            ColumnDefinitions="44,*,44"
+            BackgroundColor="White">
+
+            <Button
+                Grid.Column="0"
+                Text="‹"
+                FontSize="32"
+                TextColor="#1E3A5F"
+                BackgroundColor="Transparent"
+                Padding="0"
+                Clicked="OnBackClicked" />
+
+            <Label
+                Grid.Column="1"
+                Text="Gravando"
+                FontSize="22"
+                FontAttributes="Bold"
+                TextColor="#1E3A5F"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center" />
+
+        </Grid>
+
+        <!-- Área principal (waveform sem moldura, inspirado no gravador Samsung) -->
+        <VerticalStackLayout
+            Grid.Row="1"
+            Padding="12,24,12,0"
+            Spacing="12"
+            VerticalOptions="Center"
+            HorizontalOptions="Fill">
+
+            <Label
+                x:Name="TimerLabel"
+                Text="00:00:00"
+                FontSize="46"
+                FontAttributes="Bold"
+                TextColor="#1E3A5F"
+                HorizontalTextAlignment="Center" />
+
+            <Label
+                x:Name="RecordingStatusLabel"
+                Text="Gravando..."
+                FontSize="16"
+                FontAttributes="Bold"
+                TextColor="#C62828"
+                HorizontalTextAlignment="Center" />
+
+            <Grid RowDefinitions="*,Auto" HeightRequest="220">
+
+                <Grid
+                    x:Name="WaveformHost"
+                    Grid.Row="0"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    Margin="0"
+                    BackgroundColor="Transparent">
+                    <Grid.GestureRecognizers>
+                        <PanGestureRecognizer PanUpdated="OnWaveformPanUpdated" />
+                        <TapGestureRecognizer Tapped="OnWaveformTapped" />
+                    </Grid.GestureRecognizers>
+
+                    <GraphicsView
+                        x:Name="WaveformView"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"
+                        InputTransparent="True"
+                        BackgroundColor="Transparent" />
+                </Grid>
+
+                <ImageButton
+                    x:Name="ListenButton"
+                    Grid.Row="0"
+                    Source="play_blue.svg"
+                    BackgroundColor="White"
+                    BorderColor="#B9CAE0"
+                    BorderWidth="1"
+                    WidthRequest="58"
+                    HeightRequest="58"
+                    CornerRadius="29"
+                    Padding="17"
+                    Clicked="OnListenClicked"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start"
+                    Margin="16" />
+
+                <Grid
+                    Grid.Row="1"
+                    ColumnDefinitions="Auto,*,Auto"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center"
+                    Margin="12,8,12,12"
+                    ColumnSpacing="10">
+
+                    <Label
+                        x:Name="CurrentPositionLabel"
+                        Text="00:00"
+                        FontSize="12"
+                        TextColor="#707070"
+                        VerticalTextAlignment="Center" />
+
+                    <Slider
+                        x:Name="TimelineSlider"
+                        Grid.Column="1"
+                        Minimum="0"
+                        Maximum="1"
+                        ValueChanged="OnTimelineSliderValueChanged"
+                        DragStarted="OnTimelineDragStarted"
+                        DragCompleted="OnTimelineDragCompleted"
+                        IsVisible="False"
+                        IsEnabled="False" />
+
+                    <Label
+                        Grid.Column="1"
+                        Text="Toque ou arraste a régua para escolher o início"
+                        FontSize="11"
+                        TextColor="#8A96A5"
+                        HorizontalTextAlignment="Center"
+                        VerticalTextAlignment="Center" />
+
+                    <Label
+                        x:Name="TotalDurationLabel"
+                        Grid.Column="2"
+                        Text="00:00"
+                        FontSize="12"
+                        TextColor="#707070"
+                        VerticalTextAlignment="Center" />
+
+                </Grid>
+
+            </Grid>
+
+        </VerticalStackLayout>
+
+        <!-- Controles -->
+        <Grid
+            Grid.Row="2"
+            Margin="14,10,14,30"
+            ColumnDefinitions="*,*,*"
+            ColumnSpacing="4">
+
+            <!-- Cancelar -->
+            <VerticalStackLayout
+                Grid.Column="0"
+                Spacing="7"
+                HorizontalOptions="Center"
+                VerticalOptions="Start">
+
+                <ImageButton
+                    Source="close_dark.svg"
+                    BackgroundColor="White"
+                    BorderColor="#C8D0DA"
+                    BorderWidth="1"
+                    WidthRequest="58"
+                    HeightRequest="58"
+                    CornerRadius="29"
+                    Padding="17"
+                    Clicked="OnCancelClicked" />
+
+                <Label
+                    Text="Cancelar"
+                    FontSize="12"
+                    TextColor="#202020"
+                    HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+
+            <!-- Pausar / Retomar -->
+            <VerticalStackLayout
+                Grid.Column="1"
+                Spacing="7"
+                HorizontalOptions="Center"
+                VerticalOptions="Start">
+
+                <ImageButton
+                    x:Name="PauseButton"
+                    Source="pause_blue.svg"
+                    BackgroundColor="White"
+                    BorderColor="#B9CAE0"
+                    BorderWidth="2"
+                    WidthRequest="70"
+                    HeightRequest="70"
+                    CornerRadius="35"
+                    Padding="19"
+                    Clicked="OnPauseClicked" />
+
+                <Label
+                    x:Name="PauseLabel"
+                    Text="Pausar"
+                    FontSize="12"
+                    TextColor="#202020"
+                    HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+
+            <!-- Finalizar -->
+            <VerticalStackLayout
+                Grid.Column="2"
+                Spacing="7"
+                HorizontalOptions="Center"
+                VerticalOptions="Start">
+
+                <ImageButton
+                    x:Name="FinalizeButton"
+                    Source="stop_red.svg"
+                    BackgroundColor="White"
+                    BorderColor="#E8A7AD"
+                    BorderWidth="1"
+                    WidthRequest="58"
+                    HeightRequest="58"
+                    CornerRadius="29"
+                    Padding="16"
+                    Clicked="OnFinalizeClicked" />
+
+                <Label
+                    Text="Finalizar"
+                    FontSize="12"
+                    TextColor="#202020"
+                    HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
